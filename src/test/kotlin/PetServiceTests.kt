@@ -1,5 +1,6 @@
 package tests
 
+import io.qameta.allure.*
 import kotlinx.coroutines.test.runTest
 import okhttp3.MultipartBody
 import org.example.models.Category
@@ -10,6 +11,9 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import kotlin.random.Random
 
+@Epic("Petstore API")
+@Feature("Pet Management")
+@DisplayName("Тестирование API Питомцев")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PetServiceTests {
@@ -26,6 +30,10 @@ class PetServiceTests {
 
     @Test
     @Order(1)
+    @Story("Как пользователь, я хочу создать питомца")
+    @DisplayName("Успешное создание нового питомца")
+    @Description("Проверяет успешное создание нового питомца")
+    @Severity(SeverityLevel.BLOCKER)
     fun `POST - Create pet`() = runTest {
         val category = Category(id = 10, name = "Cats")
         val tag = Tag(id = 1, name = "cute-cat")
@@ -54,6 +62,9 @@ class PetServiceTests {
 
     @Test
     @Order(2)
+    @Story("Как пользователь, я хочу найти питомца")
+    @DisplayName("Получение питомца по его ID")
+    @Severity(SeverityLevel.CRITICAL)
     fun `GET - Find pet by ID`() = runTest {
         val response = api.getPet(petId)
 

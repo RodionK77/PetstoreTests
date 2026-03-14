@@ -1,5 +1,6 @@
 package tests
 
+import io.qameta.allure.*
 import kotlinx.coroutines.test.runTest
 import org.example.api.Retrofit
 import org.example.models.OrderStatus
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import kotlin.random.Random
 
+@Epic("Petstore API")
+@Feature("Store Management")
+@DisplayName("Тестирование API Магазина (Заказы)")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StoreServiceTests {
@@ -24,6 +28,9 @@ class StoreServiceTests {
 
     @Test
     @Order(1)
+    @Story("Как пользователь, я хочу получить статус инвентаря магазина")
+    @DisplayName("Получение статуса инвентаря магазина")
+    @Severity(SeverityLevel.NORMAL)
     fun `GET - Inventory`() = runTest {
         val response = api.getInventory()
         assertEquals(200, response.code())
@@ -35,6 +42,9 @@ class StoreServiceTests {
 
     @Test
     @Order(2)
+    @Story("Как пользователь, я хочу оформить заказ")
+    @DisplayName("Успешное создание заказа на питомца")
+    @Severity(SeverityLevel.CRITICAL)
     fun `POST - Place an order`() = runTest {
         val order = org.example.models.Order(
             id = orderId,

@@ -1,5 +1,6 @@
 package tests
 
+import io.qameta.allure.*
 import kotlinx.coroutines.test.runTest
 import org.example.api.Retrofit
 import org.example.models.User
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.random.Random
 import kotlin.test.assertNotNull
 
+@Epic("Petstore API")
+@Feature("User Management")
+@DisplayName("Тестирование API Пользователей")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserServiceTests {
@@ -24,8 +28,12 @@ class UserServiceTests {
         userName = "User_$userId"
     }
 
+
     @Test
     @Order(1)
+    @Story("Как пользователь, я хочу зарегестрироваться")
+    @DisplayName("Создание нового пользователя")
+    @Severity(SeverityLevel.BLOCKER)
     fun `POST - Create user`() = runTest {
         val user = User(
             id = userId,
@@ -44,6 +52,10 @@ class UserServiceTests {
 
     @Test
     @Order(2)
+    @Story("Как пользователь, я хочу авторизироваться")
+    @DisplayName("Успешный логин пользователя")
+    @Description("Проверяет успешный логин пользователя")
+    @Severity(SeverityLevel.CRITICAL)
     fun `GET - Login user`() = runTest {
         val response = api.login(userName, userPass)
 

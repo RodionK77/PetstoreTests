@@ -1,14 +1,21 @@
 package org.example.api
 
+import io.qameta.allure.okhttp3.AllureOkHttp3
+import okhttp3.OkHttpClient
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
 
 object Retrofit {
     private const val BASE_URL = "https://petstore.swagger.io/v2/"
 
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(AllureOkHttp3())
+        .build()
+
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
